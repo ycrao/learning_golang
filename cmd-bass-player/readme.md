@@ -8,8 +8,7 @@
 
 >   目前支持命令行播放 `mp3` 音频文件，仅支持 `Windows` 64位系统。
 
-- 解压 `release` 目录下文件（`bass.dll` 和 `play.exe`）到特定目录，然后将该目录加入系统环境变量 `PATH` 中。
-
+解压 `release.zip` 到特定目录下（请保证 `bass.dll` 和 `play.exe` 位于同一目录下），然后将该目录加入系统环境变量 `PATH` 中。
 后续即可在 `cmd/powershell` 终端执行以下命令，播放 `mp3` 文件。
 
 ```bash
