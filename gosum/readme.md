@@ -8,3 +8,8 @@ g++ -c test_gosum.cpp -o test_gosum.o -g -std=c++11
 g++ test_gosum.o gosum.dll -o test_gosum.exe -g -std=c++11
 .\test_gosum.exe
 ```
+
+### ref
+
+- [Dynamic-Link Library Best Practices](https://docs.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-best-practices)
+- [goDLL](https://github.com/z505/goDLL)
