@@ -1,7 +1,7 @@
 # Learning Golang
 
 
-### 索引/Index
+### 索引（Index）
 
 - 在命令行终端播放音频: [play-audio-in-cmd](play-audio-in-cmd/)
 - 基于 `bass` 实现的终端播放器: [cmd-bass-player](cmd-bass-player/)

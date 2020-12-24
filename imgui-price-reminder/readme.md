@@ -1,7 +1,7 @@
 # imgui-price-reminder
 
 
-### Snap
+### 截图（Snapshot）
 
 如图:
 
