@@ -1,2 +1,9 @@
-# learning_golang
-Learning Golang
+# Learning Golang
+
+
+### 索引/Index
+
+- 在命令行终端播放音频: [play-audio-in-cmd](play-audio-in-cmd/)
+- 基于 `bass` 实现的终端播放器: [cmd-bass-player](cmd-bass-player/)
+- `Golang` 生成 `dll` 并调用: [gosum](gosum/)
+- 基于 `imgui` GUI库 实现的贵金属价格悬浮提示器: [imgui-price-reminder](imgui-price-reminder/)
