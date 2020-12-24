@@ -26,16 +26,18 @@ func initFont() {
 	builder.AddText("0123456789./:(+) ")
 	// builder.AddRanges(fonts.GlyphRangesChineseFull())
 	builder.BuildRanges(ranges)
+	/*
 	defaultFont = fonts.AddFontFromFileTTFV("./ProggyTiny.ttf",
 		10,
 		imgui.DefaultFontConfig,
 		fonts.GlyphRangesDefault())
+	 */
+	defaultFont = fonts.AddFontDefaultV(imgui.DefaultFontConfig)
 	lcdFont = fonts.AddFontFromFileTTFV(
 		"./LcdD.ttf",
 		50,
 		imgui.DefaultFontConfig,
 		ranges.Data())
-
 }
 
 func onClickXAU() {
@@ -56,6 +58,10 @@ func onClickAGTD() {
 
 func onClickUSDIDX() {
 	openUrl("USDIDX")
+}
+
+func onClickGithub() {
+	open.Run("https://github.com/ycrao/learning_golang/tree/main/imgui-price-reminder")
 }
 
 func openUrl(symbol string) {
@@ -115,6 +121,7 @@ func running() {
 			g.LabelV(fmt.Sprintf("%s", board[0]), false, yellow, &lcdFont),
 			g.LabelV(board[1], false, nil, &defaultFont),
 		))
+		layout = append(layout, g.Label("(~^_^~) PriceReminder"))
 		return layout
 	}
 	g.SingleWindowWithMenuBar("Price Reminder", layout())
@@ -122,7 +129,7 @@ func running() {
 
 func main() {
 	flag := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent
-	wnd := g.NewMasterWindow("Price Reminder", 180, 100, flag, initFont)
+	wnd := g.NewMasterWindow("Price Reminder", 180, 120, flag, initFont)
 	bg := color.RGBA{}
 	wnd.SetBgColor(bg)
 	wnd.SetPos(1000, 100)
