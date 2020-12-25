@@ -15,9 +15,26 @@ import (
 )
 
 var (
+	board       [2]string
 	defaultFont imgui.Font
-	lcdFont imgui.Font
+	lcdFont     imgui.Font
+	t           = 0
+	posX        = 1000
+	posY        = 50
+	wnd         *g.MasterWindow
 )
+
+// PathExists
+func PathExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
+}
 
 func initFont() {
 	fonts := g.Context.IO().Fonts()
@@ -33,11 +50,21 @@ func initFont() {
 		fonts.GlyphRangesDefault())
 	 */
 	defaultFont = fonts.AddFontDefaultV(imgui.DefaultFontConfig)
-	lcdFont = fonts.AddFontFromFileTTFV(
-		"./LcdD.ttf",
-		50,
-		imgui.DefaultFontConfig,
-		ranges.Data())
+	exePath, _ := os.Executable()
+	lcdFontPath := exePath + "\\..\\LcdD.ttf"
+	if pathExisted, _ := PathExists(lcdFontPath); pathExisted {
+		lcdFont = fonts.AddFontFromFileTTFV(
+			lcdFontPath,
+			50,
+			imgui.DefaultFontConfig,
+			ranges.Data())
+	} else {
+		lcdFont = fonts.AddFontFromFileTTFV(
+			"./LcdD.ttf",
+			50,
+			imgui.DefaultFontConfig,
+			ranges.Data())
+	}
 }
 
 func onClickXAU() {
@@ -60,8 +87,20 @@ func onClickUSDIDX() {
 	openUrl("USDIDX")
 }
 
-func onClickGithub() {
-	open.Run("https://github.com/ycrao/learning_golang/tree/main/imgui-price-reminder")
+func onChangeTheme() {
+	t ++
+	r := t%3
+	switch r {
+	case 0:
+		imgui.StyleColorsDark()
+		break
+	case 1:
+		imgui.StyleColorsClassic()
+		break
+	case 2:
+		imgui.StyleColorsLight()
+		break
+	}
 }
 
 func openUrl(symbol string) {
@@ -71,9 +110,7 @@ func openUrl(symbol string) {
 func onExit() {
 	os.Exit(0)
 }
-var (
-	board [2]string
-)
+
 func refreshData() {
 	count := 1
 	ticker := time.NewTicker(time.Second * 15)
@@ -100,7 +137,6 @@ func refreshData() {
 func running() {
 	layout := func() []g.Widget {
 		var layout []g.Widget
-		imgui.PushFont(defaultFont)
 		layout = g.Layout{
 			g.MenuBar(g.Layout{
 				g.Menu("Links", g.Layout{
@@ -110,12 +146,12 @@ func running() {
 					g.MenuItem("Au(T+D)", onClickAUTD),
 					g.MenuItem("Ag(T+D)", onClickAGTD),
 				}),
-				g.Menu("Exit", g.Layout{
+				g.Menu("Setting", g.Layout{
+					g.MenuItem("ChangeTheme", onChangeTheme),
 					g.MenuItem("Exit", onExit),
 				}),
 			}),
 		}
-		imgui.PopFont()
 		yellow := &color.RGBA{255, 255, 0, 255}
 		layout = append(layout, g.Line(
 			g.LabelV(fmt.Sprintf("%s", board[0]), false, yellow, &lcdFont),
@@ -128,11 +164,17 @@ func running() {
 }
 
 func main() {
-	flag := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent
-	wnd := g.NewMasterWindow("Price Reminder", 180, 120, flag, initFont)
+	flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent
+	// flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsTransparent
+	wnd = g.NewMasterWindow("Price Reminder", 180, 120, flags, initFont)
 	bg := color.RGBA{}
 	wnd.SetBgColor(bg)
-	wnd.SetPos(1000, 100)
+	x := os.Getenv("PR_POS_X")
+	y := os.Getenv("PR_POS_Y")
+	posX, _ = strconv.Atoi(x)
+	posY, _ = strconv.Atoi(y)
+	fmt.Println(posX, posY)
+	wnd.SetPos(posX, posY)
 	go refreshData()
 	wnd.Main(running)
 }
