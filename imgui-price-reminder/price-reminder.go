@@ -5,6 +5,7 @@ import (
 	g "github.com/AllenDang/giu"
 	"github.com/AllenDang/giu/imgui"
 	"github.com/go-resty/resty/v2"
+	"github.com/joho/godotenv"
 	"github.com/skratchdot/open-golang/open"
 	"image/color"
 	"math/rand"
@@ -164,16 +165,25 @@ func running() {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err == nil {
+		x := os.Getenv("PR_POS_X")
+		y := os.Getenv("PR_POS_Y")
+		posX, _ = strconv.Atoi(x)
+		posY, _ = strconv.Atoi(y)
+		if posX == 0 {
+			posX = 1000
+		}
+		if posY <= 0 {
+			posY = 50
+		}
+	}
+	fmt.Println(posX, posY)
 	flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent
 	// flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsTransparent
 	wnd = g.NewMasterWindow("Price Reminder", 180, 120, flags, initFont)
 	bg := color.RGBA{}
 	wnd.SetBgColor(bg)
-	x := os.Getenv("PR_POS_X")
-	y := os.Getenv("PR_POS_Y")
-	posX, _ = strconv.Atoi(x)
-	posY, _ = strconv.Atoi(y)
-	fmt.Println(posX, posY)
 	wnd.SetPos(posX, posY)
 	go refreshData()
 	wnd.Main(running)
