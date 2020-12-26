@@ -2,7 +2,7 @@
 
 [简体中文](readme_zh-CN.md)
 
->   A tray/taskbar app, one-click then navigate to some online playground sites for program languages.
+>   A tray/taskbar app, one-click then navigate to some online programing playground sites.
 
 ### Snapshot
 
