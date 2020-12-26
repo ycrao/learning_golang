@@ -1,0 +1,52 @@
+{
+  "menu_items": [
+    {
+      "name": "C/C++",
+      "urls": ["https://cplayground.com/", "http://cpp.sh/"]
+    },
+    {
+      "name": "Golang",
+      "urls": ["https://play.golang.org/", "https://play.goplus.org/", "https://repl.goplus.org/", "https://play.studygolang.com/"]
+    },
+    {
+      "name": "PHP",
+      "urls": ["https://sandbox.onlinephpfunctions.com/", "https://www.tehplayground.com/", "http://phpfiddle.org/"]
+    },
+    {
+      "name": "Python",
+      "urls": ["https://trinket.io/python", "https://www.katacoda.com/courses/python/playground", "https://jupyter.org/try"]
+    },
+    {
+      "name": "Java",
+      "urls": ["https://code.labstack.com/java", "https://www.studytonight.com/code/playground/java/", "https://playcode.io/empty/"]
+    },
+    {
+      "name": "Ruby",
+      "urls": ["https://try.ruby-lang.org/playground/"]
+    },
+    {
+      "name": "Rust",
+      "urls": ["https://play.rust-lang.org/"]
+    },
+    {
+      "name": "Web Front",
+      "urls": ["https://jsfiddle.net/", "https://codepen.io/", "https://playcode.io/empty/"]
+    },
+    {
+      "name": "Typescript",
+      "urls": ["https://www.typescriptlang.org/play/"]
+    },
+    {
+      "name": "SQL",
+      "urls": ["https://www.db-fiddle.com/", "http://sqlfiddle.com/", "https://sqlpad.io/playground/"]
+    },
+    {
+      "name": "Swift",
+      "urls": ["http://online.swiftplayground.run/"]
+    },
+    {
+      "name": "ALL IN ONE",
+      "urls": ["https://repl.it/", "https://paiza.io/en"]
+    }
+  ]
+}

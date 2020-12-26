@@ -1,32 +1,34 @@
-# online-playground
+# 在线演练场（online-playground）
 
-[简体中文](readme_zh-CN.md)
+[English](readme.md)
 
->   A tray/taskbar app, one-click then navigate to some online playground sites for program languages.
+>   一个托盘应用，可快速链接到某种或多种语言的在线 `playground` （演练场）地址。
 
-### Snapshot
+### 截图
 
 ![](snapshot.png)
 
-### Compile and Run
+### 编译与运行
 
-- Modify `playground.json` file to `add` or `remove` some playgrounds.
-- For `Windows`, you can download [release zip file](https://github.com/ycrao/learning_golang/releases) named `playground.zip` , unzip to some directory, just click `playground.exe` to run.
-- For Linux and MacOS, you need compile and build yourself.
+- 编辑 `playground.json` 配置文件，可以增删一些 `playgrounds`。 
+- 对于 `Windows` 已有编译好的名为 `playground.zip` 的 [压缩档](https://github.com/ycrao/learning_golang/releases) ，解压到某一目录，双击 `playground.exe` 即可运行。
+- `Linux` 与 `MacOS` 操作系统，需要您自行编译。
 
-Some issues about app-icon or compiling problem please ref to [systray](https://github.com/getlantern/systray) documentation.
+应用图标等相关问题请参考：[systray](https://github.com/getlantern/systray) 文档。
 
 ```bash
-# Compile For Windows
-# in Windows Powershell
+# 在  Windows 下编译
+# Windows Powershell
 $env:GOOS='windows'; $env:GOARCH='amd64'; go build -ldflags "-s -w -H=windowsgui" -o playground.exe; $env:GOGS=''; $env:GOARCH='';
-# Compile For Linux
+# Linux 下编译
 GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -o playground
-# Compile For MacOS, need package to `.app` by yourself, ref to https://github.com/getlantern/systray#macos
+# MacOS 下编译，需要自行打包成 .app 应用，参考 https://github.com/getlantern/systray#macos
 GOOS=darwin GOARCH=amd64 go build -ldflags "-s -w" -o playground
 ```
 
-### Links
+### 链接
+
+>   感谢以下网站提供在线演练场功能（某些网站可能需要魔法上网，请自行解决）：
 
 - All Playground: [repl.it](https://repl.it/) | [Paiza.io](https://paiza.io/en) | [CodePad:Java/Python/C++14](http://codepad.yenhsuan.xyz/) ...
 - C/CPP Playground: [CPlayground](https://cplayground.com/) | [C++Shell](http://cpp.sh/) | [Lab Stack](https://code.labstack.com/cpp) | [TutorialsPoint](https://www.tutorialspoint.com/compile_cpp_online.php) ...
@@ -42,7 +44,7 @@ GOOS=darwin GOARCH=amd64 go build -ldflags "-s -w" -o playground
 - RustPlayground: [official](https://play.rust-lang.org/) | [TutorialsPoint](https://www.tutorialspoint.com/compile_rust_online.php) ...
 - ...
 
-### Ref
+### 参考
 
 - [awesome-playgrounds](https://github.com/ymyzk/awesome-playgrounds)
 - [systray](https://github.com/getlantern/systray)
