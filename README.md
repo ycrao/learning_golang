@@ -1,5 +1,6 @@
 # Learning Golang
 
+>   学习 golang 之余写下一些工具程序。Writing some tools while learning Golang ! 
 
 ### 索引（Index）
 
