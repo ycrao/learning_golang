@@ -10,6 +10,7 @@ import (
 	"image/color"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -37,6 +38,15 @@ func PathExists(path string) (bool, error) {
 	return false, err
 }
 
+func getExePath() string {
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exePath := filepath.Dir(ex)
+	return exePath
+}
+
 func initFont() {
 	fonts := g.Context.IO().Fonts()
 	ranges := imgui.NewGlyphRanges()
@@ -51,9 +61,10 @@ func initFont() {
 		fonts.GlyphRangesDefault())
 	 */
 	defaultFont = fonts.AddFontDefaultV(imgui.DefaultFontConfig)
-	exePath, _ := os.Executable()
-	lcdFontPath := exePath + "\\..\\LcdD.ttf"
+	exePath := getExePath()
+	lcdFontPath := exePath + string(os.PathSeparator) + "LcdD.ttf"
 	if pathExisted, _ := PathExists(lcdFontPath); pathExisted {
+		fmt.Println("lcdFontPath Existed")
 		lcdFont = fonts.AddFontFromFileTTFV(
 			lcdFontPath,
 			50,
@@ -165,18 +176,22 @@ func running() {
 }
 
 func main() {
-	err := godotenv.Load()
-	if err == nil {
-		x := os.Getenv("PR_POS_X")
-		y := os.Getenv("PR_POS_Y")
-		posX, _ = strconv.Atoi(x)
-		posY, _ = strconv.Atoi(y)
-		if posX == 0 {
-			posX = 1000
-		}
-		if posY <= 0 {
-			posY = 50
-		}
+	exePath := getExePath()
+	localEnvPath := exePath + string(os.PathSeparator) + ".env"
+	if pathExisted, _ := PathExists(localEnvPath); pathExisted {
+		godotenv.Load(localEnvPath)
+	} else {
+		godotenv.Load()
+	}
+	x := os.Getenv("PR_POS_X")
+	y := os.Getenv("PR_POS_Y")
+	posX, _ = strconv.Atoi(x)
+	posY, _ = strconv.Atoi(y)
+	if posX <= 0 {
+		posX = 1000
+	}
+	if posY <= 0 {
+		posY = 50
 	}
 	fmt.Println(posX, posY)
 	flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent

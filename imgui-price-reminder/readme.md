@@ -21,7 +21,7 @@ PR_POS_Y=50
 .\PriceReminder.exe
 # Linux bash/terminal
 chmod +x PriceReminder
-.\PriceReminder
+./PriceReminder
 ```
 
 ### 截图（Snapshot）

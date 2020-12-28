@@ -1,0 +1,1 @@
+package go_path_test
