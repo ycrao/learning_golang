@@ -9,3 +9,4 @@
 - `Golang` 生成 `dll` 并调用: [gosum](gosum/)
 - 基于 `imgui` GUI库 实现的贵金属价格悬浮提示器: [imgui-price-reminder](imgui-price-reminder/)
 - 在线语言演练场: [online-playground](online-playground/)
+- `Golang` 文件路径测试：[go-path-test](go-path-test/)
