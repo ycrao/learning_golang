@@ -3,7 +3,7 @@ cadolime
 
 >   Pronounce: [kædɑlaɪm] Short for: `Cat-Dog-Lion's Time`
 
-获取各种动物时间：🐱🐶🦁 ，便于抢购。
+获取各种动物平台时间：🐱🐶🦁 ，便于抢购。
 
 ### 🐱の时 (cat's time)
 
