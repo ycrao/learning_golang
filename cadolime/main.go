@@ -35,9 +35,9 @@ func SystemTime(ld, dd, cd int64) {
 	delay := *d
 	for {
 		sTs := time.Now().UnixNano()/1e6
-		lTs := sTs + ld + delay
-		dTs := sTs + dd + delay
-		cTs := sTs + cd + delay
+		lTs := sTs - ld + delay
+		dTs := sTs - dd + delay
+		cTs := sTs - cd + delay
 		stm := time.Unix(0, sTs*int64(time.Millisecond))
 		ltm := time.Unix(0, lTs*int64(time.Millisecond))
 		dtm := time.Unix(0, dTs*int64(time.Millisecond))
