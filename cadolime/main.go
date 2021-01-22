@@ -38,7 +38,7 @@ func SystemTime(ld, dd, cd int64) {
 		lTs := sTs - ld + delay
 		dTs := sTs - dd + delay
 		cTs := sTs - cd + delay
-		stm := time.Unix(0, sTs*int64(time.Millisecond))
+		// stm := time.Unix(0, sTs*int64(time.Millisecond))
 		ltm := time.Unix(0, lTs*int64(time.Millisecond))
 		dtm := time.Unix(0, dTs*int64(time.Millisecond))
 		ctm := time.Unix(0, cTs*int64(time.Millisecond))
@@ -50,8 +50,9 @@ func SystemTime(ld, dd, cd int64) {
 			case "cat":
 				fmt.Printf("\rCat Time: %s", ctm.Format("2006-01-02 15:04:05.000"))
 			case "sys":
+				fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
 			default:
-				fmt.Printf("\rSystem Time: %s", stm.Format("2006-01-02 15:04:05.000"))
+				fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
 		}
 		time.Sleep(100 * time.Millisecond)
 	}
