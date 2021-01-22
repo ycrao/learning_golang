@@ -12,8 +12,8 @@ cadolime[kædɑlaɪm]
 如上图是苏宁平台的，取 `time` 平均毫秒延时数，大约 `9` ms 。
 
 ```plaintext
-京东平台可选域名： a.jd.com|www.jd.com|m.jd.com
 苏宁平台可选域名： f.m.suning.com|suning.com|m.suning.com
+京东平台可选域名： a.jd.com|www.jd.com|m.jd.com
 阿里淘宝天猫系可选域名： api.m.taobao.com|taobao.com|tmall.com
 ```
 
