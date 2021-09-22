@@ -16,7 +16,8 @@ var (
 
 const (
 	CAT_URL = "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp"  // millisecond timestamp
-	DOG_URL = "https://a.jd.com//ajax/queryServerData.html"  // millisecond timestamp
+	// OLD_DOG_URL = "https://a.jd.com//ajax/queryServerData.html"  // millisecond timestamp (abandoned)
+	DOG_URL = "https://api.m.jd.com/client.action?functionId=queryMaterialProducts&client=wh5"   // millisecond timestamp
 	LION_SECOND_URL = "http://quan.suning.com/getSysTime.do"  // second timestamp [please control frequency]
 	LION_URL = "https://f.m.suning.com/api/ct.do"  // millisecond timestamp
 )
@@ -62,7 +63,7 @@ func CatDeltaTime() int64 {
 	cTs, _ := fetchTime("cat")
 	sTs := time.Now().UnixNano() / 1e6  // system time
 	delta := sTs - cTs
-	// fmt.Println("cat delta:", delta)
+	fmt.Println("cat delta:", delta)
 	return delta
 }
 
@@ -70,7 +71,7 @@ func DogDeltaTime() int64 {
 	cTs, _ := fetchTime("dog")
 	sTs := time.Now().UnixNano() / 1e6  // system time
 	delta := sTs - cTs
-	// fmt.Println("dog delta:", delta)
+	fmt.Println("dog delta:", delta)
 	return delta
 }
 
@@ -78,7 +79,7 @@ func LionDeltaTime() int64 {
 	cTs, _ := fetchTime("lion")
 	sTs := time.Now().UnixNano() / 1e6  // system time
 	delta := sTs - cTs
-	// fmt.Println("lion delta:", delta)
+	fmt.Println("lion delta:", delta)
 	return delta
 }
 
@@ -130,8 +131,18 @@ func LionDeltaTimeBySecond() int64 {
 }
 
 #dog's time
+// old api response (abandoned)
 {
 	"serverTime": 1610782350944
+}
+
+// new api response
+{
+	"currentTime":"2021-09-22 21:46:05",
+	"currentTime2":"1632318365852",
+	"returnMsg":"empty parameter ids",
+	"code":"0",
+	"subCode":"1-3"
 }
 
 #lion-s's time
@@ -152,10 +163,21 @@ func LionDeltaTimeBySecond() int64 {
 func fetchTime(animal string) (int64, string) {
 	var url string
 	switch animal {
+	/*
+	case "old-dog":
+		url = OLD_DOG_URL
+		resp, _ := resty.New().R().Get(url)
+		ts := gjson.Get(string(resp.Body()), "serverTime").Int()
+		datetimeStr := time.Unix(0, ts*int64(time.Millisecond)).Format("2006-01-02 15:04:05.000")
+		// fmt.Println(ts)
+		// fmt.Println(datetimeStr)
+		return ts, datetimeStr
+	*/
 	case "dog":
 		url = DOG_URL
 		resp, _ := resty.New().R().Get(url)
-		ts := gjson.Get(string(resp.Body()), "serverTime").Int()
+		tsStr := gjson.Get(string(resp.Body()), "currentTime2").String()
+		ts, _ := strconv.ParseInt(tsStr, 10, 64)
 		datetimeStr := time.Unix(0, ts*int64(time.Millisecond)).Format("2006-01-02 15:04:05.000")
 		// fmt.Println(ts)
 		// fmt.Println(datetimeStr)
