@@ -15,11 +15,11 @@ var (
 )
 
 const (
-	CAT_URL = "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp"  // millisecond timestamp
+	CAT_URL = "http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp" // millisecond timestamp
 	// OLD_DOG_URL = "https://a.jd.com//ajax/queryServerData.html"  // millisecond timestamp (abandoned)
-	DOG_URL = "https://api.m.jd.com/client.action?functionId=queryMaterialProducts&client=wh5"   // millisecond timestamp
-	LION_SECOND_URL = "http://quan.suning.com/getSysTime.do"  // second timestamp [please control frequency]
-	LION_URL = "https://f.m.suning.com/api/ct.do"  // millisecond timestamp
+	DOG_URL         = "https://api.m.jd.com/client.action?functionId=queryMaterialProducts&client=wh5" // millisecond timestamp
+	LION_SECOND_URL = "http://quan.suning.com/getSysTime.do"                                           // second timestamp [please control frequency]
+	LION_URL        = "https://f.m.suning.com/api/ct.do"                                               // millisecond timestamp
 )
 
 func main() {
@@ -35,7 +35,7 @@ func SystemTime(ld, dd, cd int64) {
 	platform := *p
 	delay := *d
 	for {
-		sTs := time.Now().UnixNano()/1e6
+		sTs := time.Now().UnixNano() / 1e6
 		lTs := sTs - ld + delay
 		dTs := sTs - dd + delay
 		cTs := sTs - cd + delay
@@ -44,16 +44,16 @@ func SystemTime(ld, dd, cd int64) {
 		dtm := time.Unix(0, dTs*int64(time.Millisecond))
 		ctm := time.Unix(0, cTs*int64(time.Millisecond))
 		switch platform {
-			case "lion":
-				fmt.Printf("\rLion Time: %s", ltm.Format("2006-01-02 15:04:05.000"))
-			case "dog":
-				fmt.Printf("\rDogTime: %s", dtm.Format("2006-01-02 15:04:05.000"))
-			case "cat":
-				fmt.Printf("\rCat Time: %s", ctm.Format("2006-01-02 15:04:05.000"))
-			case "sys":
-				fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
-			default:
-				fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
+		case "lion":
+			fmt.Printf("\rLion Time: %s", ltm.Format("2006-01-02 15:04:05.000"))
+		case "dog":
+			fmt.Printf("\rDogTime: %s", dtm.Format("2006-01-02 15:04:05.000"))
+		case "cat":
+			fmt.Printf("\rCat Time: %s", ctm.Format("2006-01-02 15:04:05.000"))
+		case "sys":
+			fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
+		default:
+			fmt.Printf("\rSystem Time: %s", time.Now().Format("2006-01-02 15:04:05.000"))
 		}
 		time.Sleep(100 * time.Millisecond)
 	}
@@ -61,7 +61,7 @@ func SystemTime(ld, dd, cd int64) {
 
 func CatDeltaTime() int64 {
 	cTs, _ := fetchTime("cat")
-	sTs := time.Now().UnixNano() / 1e6  // system time
+	sTs := time.Now().UnixNano() / 1e6 // system time
 	delta := sTs - cTs
 	fmt.Println("cat delta:", delta)
 	return delta
@@ -69,7 +69,7 @@ func CatDeltaTime() int64 {
 
 func DogDeltaTime() int64 {
 	cTs, _ := fetchTime("dog")
-	sTs := time.Now().UnixNano() / 1e6  // system time
+	sTs := time.Now().UnixNano() / 1e6 // system time
 	delta := sTs - cTs
 	fmt.Println("dog delta:", delta)
 	return delta
@@ -77,7 +77,7 @@ func DogDeltaTime() int64 {
 
 func LionDeltaTime() int64 {
 	cTs, _ := fetchTime("lion")
-	sTs := time.Now().UnixNano() / 1e6  // system time
+	sTs := time.Now().UnixNano() / 1e6 // system time
 	delta := sTs - cTs
 	fmt.Println("lion delta:", delta)
 	return delta
@@ -90,99 +90,103 @@ func LionDeltaTimeBySecond() int64 {
 	count := 0
 	var c1, c2, dCount int
 	var lastTs, sTs, delta int64
-	Loop:
-		for {
-			lastTs = uTs
-			uTs, _ = fetchTime("lion-s")
-			count ++
-			if (lastTs != uTs) && (uTs == iTs + 1) {
-				c1 = count
-			} else if (lastTs != uTs) && (uTs == iTs + 2) {
-				c2 = count
-				sTs = time.Now().UnixNano() / 1e6  // system time
-				dCount = c2 - c1
-				requestSpendTime := 1000/dCount
-				msUts := uTs*1000 + int64(requestSpendTime)  // added network spend time per request
-				delta = sTs - msUts
-				fmt.Println(sTs, msUts)
-				break Loop
-			}
-			time.Sleep(100*time.Millisecond)
+Loop:
+	for {
+		lastTs = uTs
+		uTs, _ = fetchTime("lion-s")
+		count++
+		if (lastTs != uTs) && (uTs == iTs+1) {
+			c1 = count
+		} else if (lastTs != uTs) && (uTs == iTs+2) {
+			c2 = count
+			sTs = time.Now().UnixNano() / 1e6 // system time
+			dCount = c2 - c1
+			requestSpendTime := 1000 / dCount
+			msUts := uTs*1000 + int64(requestSpendTime) // added network spend time per request
+			delta = sTs - msUts
+			fmt.Println(sTs, msUts)
+			break Loop
 		}
+		time.Sleep(100 * time.Millisecond)
+	}
 	fmt.Println(iTs, uTs, sTs, c1, c2, delta)
 	fmt.Println("lion-s delta:", delta)
 	return delta
 }
 
-
-
 /*
 ```
 #cat's time
-{
-	"api": "mtop.common.getTimestamp",
-	"v": "*",
-	"ret": [
-		"SUCCESS::接口调用成功"
-	],
-	"data": {
-		"t": "1610778106791"
+
+	{
+		"api": "mtop.common.getTimestamp",
+		"v": "*",
+		"ret": [
+			"SUCCESS::接口调用成功"
+		],
+		"data": {
+			"t": "1610778106791"
+		}
 	}
-}
 
 #dog's time
 // old api response (abandoned)
-{
-	"serverTime": 1610782350944
-}
+
+	{
+		"serverTime": 1610782350944
+	}
 
 // new api response
-{
-	"currentTime":"2021-09-22 21:46:05",
-	"currentTime2":"1632318365852",
-	"returnMsg":"empty parameter ids",
-	"code":"0",
-	"subCode":"1-3"
-}
+
+	{
+		"currentTime":"2021-09-22 21:46:05",
+		"currentTime2":"1632318365852",
+		"returnMsg":"empty parameter ids",
+		"code":"0",
+		"subCode":"1-3"
+	}
 
 #lion-s's time
-{
-	"sysTime2": "2021-01-16 15:32:39",
-	"sysTime1": "20210116153239"
-}
+
+	{
+		"sysTime2": "2021-01-16 15:32:39",
+		"sysTime1": "20210116153239"
+	}
 
 #lion's time
-{
-	"api": "time",
-	"code": "1",
-	"currentTime": 1611300914188,
-	"msg": ""
-}
+
+	{
+		"api": "time",
+		"code": "1",
+		"currentTime": 1611300914188,
+		"msg": ""
+	}
+
 ```
- */
+*/
 func fetchTime(animal string) (int64, string) {
 	var url string
 	switch animal {
 	/*
-	case "old-dog":
-		url = OLD_DOG_URL
-		resp, _ := resty.New().R().Get(url)
-		ts := gjson.Get(string(resp.Body()), "serverTime").Int()
-		datetimeStr := time.Unix(0, ts*int64(time.Millisecond)).Format("2006-01-02 15:04:05.000")
-		// fmt.Println(ts)
-		// fmt.Println(datetimeStr)
-		return ts, datetimeStr
+		case "old-dog":
+			url = OLD_DOG_URL
+			resp, _ := resty.New().R().Get(url)
+			ts := gjson.Get(string(resp.Body()), "serverTime").Int()
+			datetimeStr := time.Unix(0, ts*int64(time.Millisecond)).Format("2006-01-02 15:04:05.000")
+			// fmt.Println(ts)
+			// fmt.Println(datetimeStr)
+			return ts, datetimeStr
 	*/
 	case "dog":
 		url = DOG_URL
-		resp, _ := resty.New().R().Get(url)
+		resp, _ := resty.New().R().SetHeader("User-Agent", "JD4iPhone/168528 (iPhone; iOS; Scale/3.00)").Get(url)
 		tsStr := gjson.Get(string(resp.Body()), "currentTime2").String()
 		ts, _ := strconv.ParseInt(tsStr, 10, 64)
 		datetimeStr := time.Unix(0, ts*int64(time.Millisecond)).Format("2006-01-02 15:04:05.000")
 		// fmt.Println(ts)
 		// fmt.Println(datetimeStr)
 		return ts, datetimeStr
-	case "lion-s":  // LION_SECOND
+	case "lion-s": // LION_SECOND
 		url = LION_SECOND_URL
 		resp, _ := resty.New().R().Get(url)
 		datetimeStr := gjson.Get(string(resp.Body()), "sysTime2").String()
