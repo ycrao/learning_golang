@@ -2,11 +2,6 @@ package main
 
 import (
 	"fmt"
-	g "github.com/AllenDang/giu"
-	"github.com/AllenDang/giu/imgui"
-	"github.com/go-resty/resty/v2"
-	"github.com/joho/godotenv"
-	"github.com/skratchdot/open-golang/open"
 	"image/color"
 	"math/rand"
 	"os"
@@ -14,6 +9,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	g "github.com/AllenDang/giu"
+	"github.com/AllenDang/giu/imgui"
+	"github.com/go-resty/resty/v2"
+	"github.com/joho/godotenv"
+	"github.com/skratchdot/open-golang/open"
 )
 
 var (
@@ -54,11 +55,11 @@ func initFont() {
 	// builder.AddRanges(fonts.GlyphRangesChineseFull())
 	builder.BuildRanges(ranges)
 	/*
-	defaultFont = fonts.AddFontFromFileTTFV("./ProggyTiny.ttf",
-		10,
-		imgui.DefaultFontConfig,
-		fonts.GlyphRangesDefault())
-	 */
+		defaultFont = fonts.AddFontFromFileTTFV("./ProggyTiny.ttf",
+			10,
+			imgui.DefaultFontConfig,
+			fonts.GlyphRangesDefault())
+	*/
 	defaultFont = fonts.AddFontDefaultV(imgui.DefaultFontConfig)
 	exePath := getExePath()
 	lcdFontPath := exePath + string(os.PathSeparator) + "LcdD.ttf"
@@ -79,43 +80,36 @@ func initFont() {
 }
 
 func onClickXAU() {
-	openUrl("XAUUSD")
+	open.Run("https://cn.investing.com/currencies/xau-usd")
 }
 
 func onClickXAG() {
-	openUrl("XAGUSD")
+	open.Run("https://cn.investing.com/currencies/xag-usd")
 }
 
 func onClickAUTD() {
-	openUrl("Au(T+D)")
+	open.Run("https://finance.sina.com.cn/futures/quotes/AGTD.shtml")
 }
 
 func onClickAGTD() {
-	openUrl("Ag(T+D)")
+	open.Run("https://finance.sina.com.cn/futures/quotes/AGTD.shtml")
 }
 
 func onClickUSDIDX() {
-	openUrl("USDIDX")
+	open.Run("https://cn.investing.com/indices/usdollar")
 }
 
 func onChangeTheme() {
-	t ++
-	r := t%3
+	t++
+	r := t % 3
 	switch r {
 	case 0:
 		imgui.StyleColorsDark()
-		break
 	case 1:
 		imgui.StyleColorsClassic()
-		break
 	case 2:
 		imgui.StyleColorsLight()
-		break
 	}
-}
-
-func openUrl(symbol string) {
-	open.Run("https://chart.tubiaojia.com/tubiaojia.html?symbol=" + symbol)
 }
 
 func onExit() {
@@ -126,8 +120,8 @@ func refreshData() {
 	count := 1
 	ticker := time.NewTicker(time.Second * 15)
 	for {
-		count ++
-		idx := count%4
+		count++
+		idx := count % 4
 		tips := [4]string{
 			"XAUUSD\nusd/oz",
 			"XAGUSD\nusd/oz",
@@ -141,7 +135,7 @@ func refreshData() {
 		g.Update()
 		tip := tips[idx]
 		board = [2]string{price, tip}
-		<- ticker.C
+		<-ticker.C
 	}
 }
 
@@ -165,7 +159,7 @@ func running() {
 		}
 		yellow := &color.RGBA{255, 255, 0, 255}
 		layout = append(layout, g.Line(
-			g.LabelV(fmt.Sprintf("%s", board[0]), false, yellow, &lcdFont),
+			g.LabelV(board[0], false, yellow, &lcdFont),
 			g.LabelV(board[1], false, nil, &defaultFont),
 		))
 		layout = append(layout, g.Label("(~^_^~) PriceReminder"))
@@ -193,7 +187,7 @@ func main() {
 		posY = 50
 	}
 	fmt.Println(posX, posY)
-	flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsFrameless|g.MasterWindowFlagsTransparent
+	flags := g.MasterWindowFlagsNotResizable | g.MasterWindowFlagsFloating | g.MasterWindowFlagsFrameless | g.MasterWindowFlagsTransparent
 	// flags := g.MasterWindowFlagsNotResizable|g.MasterWindowFlagsFloating|g.MasterWindowFlagsTransparent
 	wnd = g.NewMasterWindow("Price Reminder", 180, 120, flags, initFont)
 	bg := color.RGBA{}
@@ -220,10 +214,10 @@ func fetchGoldAndSilverPrice(idx int) string {
 	resp, err := resty.New().R().
 		SetHeader("Referer", "http://finance.sina.com.cn").
 		Get(url)
-	if  err != nil {
+	if err != nil {
 		return "-"
 	}
-	content := strings.Replace(string(resp.Body()), `var hq_str_` + code + `="`, "", -1)
+	content := strings.Replace(string(resp.Body()), `var hq_str_`+code+`="`, "", -1)
 	content = strings.Replace(content, `";`, "", -1)
 	result := strings.Split(content, ",")
 	price := result[0]
