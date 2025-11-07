@@ -88,7 +88,7 @@ func onClickXAG() {
 }
 
 func onClickAUTD() {
-	open.Run("https://finance.sina.com.cn/futures/quotes/AGTD.shtml")
+	open.Run("https://finance.sina.com.cn/futures/quotes/AUTD.shtml")
 }
 
 func onClickAGTD() {
