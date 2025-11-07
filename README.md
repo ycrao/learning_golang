@@ -11,3 +11,4 @@
 - 在线语言演练场: [online-playground](online-playground/)
 - `Golang` 文件路径测试：[go-path-test](go-path-test/)
 - 平台对时工具: [cadolime](cadolime/)
+- 对 `channel` 一些理解和测试：[channel](channel/)
