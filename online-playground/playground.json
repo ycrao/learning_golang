@@ -2,31 +2,31 @@
   "menu_items": [
     {
       "name": "C/C++",
-      "urls": ["https://cplayground.com/", "http://cpp.sh/"]
+      "urls": ["https://godbolt.org/", "http://cpp.sh/"]
     },
     {
       "name": "Golang",
-      "urls": ["https://play.golang.org/", "https://play.goplus.org/", "https://repl.goplus.org/", "https://play.studygolang.com/"]
+      "urls": ["https://go.dev/play/", "https://play.xgo.dev/", "https://goplay.tools/"]
     },
     {
       "name": "PHP",
-      "urls": ["https://sandbox.onlinephpfunctions.com/", "https://www.tehplayground.com/", "http://phpfiddle.org/"]
+      "urls": ["https://sandbox.onlinephpfunctions.com/", "https://3v4l.org/", "https://onlinephp.io/"]
     },
     {
       "name": "Python",
-      "urls": ["https://trinket.io/python", "https://www.katacoda.com/courses/python/playground", "https://jupyter.org/try"]
+      "urls": ["https://trinket.io/python", "https://www.online-python.com/", "https://python-playground.com/home"]
     },
     {
       "name": "Java",
-      "urls": ["https://code.labstack.com/java", "https://www.studytonight.com/code/playground/java/", "https://playcode.io/empty/"]
+      "urls": ["https://www.jdoodle.com/online-java-compiler/", "https://www.studytonight.com/code/playground/java/", "https://onecompiler.com/java", "https://dev.java/playground/"]
     },
     {
       "name": "Ruby",
-      "urls": ["https://try.ruby-lang.org/playground/"]
+      "urls": ["https://runruby.dev/", "https://try.ruby-lang.org/", "https://rextester.com/l/ruby_online_compiler"]
     },
     {
       "name": "Rust",
-      "urls": ["https://play.rust-lang.org/"]
+      "urls": ["https://play.rust-lang.org/", "https://learningrust.org/playground"]
     },
     {
       "name": "Web Front",
@@ -34,19 +34,19 @@
     },
     {
       "name": "Typescript",
-      "urls": ["https://www.typescriptlang.org/play/"]
+      "urls": ["https://www.typescriptlang.org/play/", "https://www.boot.dev/playground/ts"]
     },
     {
       "name": "SQL",
-      "urls": ["https://www.db-fiddle.com/", "http://sqlfiddle.com/", "https://sqlpad.io/playground/"]
+      "urls": ["https://www.db-fiddle.com/", "https://sqliteonline.com/", "https://sqlbolt.com/"]
     },
     {
       "name": "Swift",
-      "urls": ["http://online.swiftplayground.run/"]
+      "urls": ["https://www.programiz.com/swift/online-compiler/", "https://swiftfiddle.com/"]
     },
     {
       "name": "ALL IN ONE",
-      "urls": ["https://repl.it/", "https://paiza.io/en"]
+      "urls": ["https://www.programiz.com/", "https://replit.com/", "https://paiza.io/en", "https://onecompiler.com/"]
     }
   ]
 }
