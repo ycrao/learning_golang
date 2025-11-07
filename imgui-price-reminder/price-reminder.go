@@ -26,7 +26,6 @@ var (
 	wnd         *g.MasterWindow
 )
 
-// PathExists
 func PathExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {
@@ -218,7 +217,9 @@ func fetchGoldAndSilverPrice(idx int) string {
 	code := symbols[idx]
 	url := strings.Replace(providerUrl, "{timestamp}", tsStr, -1)
 	url = strings.Replace(url, "{code}", code, -1)
-	resp, err := resty.New().R().Get(url)
+	resp, err := resty.New().R().
+		SetHeader("Referer", "http://finance.sina.com.cn").
+		Get(url)
 	if  err != nil {
 		return "-"
 	}
